@@ -2,6 +2,7 @@ package org.cook.with.love.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -34,6 +35,7 @@ public class RecipeEntity {
     @Column(name = "category")
     private String category;
 
+    @CreationTimestamp
     @Column(name = "created_dt")
     private Timestamp createdDt;
 
