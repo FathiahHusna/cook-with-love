@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Get Recipe by Id
+autonumber
+participant app
+participant "ms-cook-love" as mcl
+database "cook-db" as db
+
+app -> mcl: click "Update" button: PUT /api/v1/recipe
+mcl -> db: find recipe by id from t_recipe
+db -> mcl: return recipe record
+mcl -> app: return & display specific recipe
+
+@enduml

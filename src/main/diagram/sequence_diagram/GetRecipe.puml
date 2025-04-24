@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Get All Recipe
+autonumber
+participant app
+participant "ms-cook-love" as mcl
+database "cook-db" as db
+
+app -> mcl: My Recipe List page: GET /api/v1/recipe
+mcl -> db: get all recipe from t_recipe
+db -> mcl: return all recipe
+mcl -> app: display all recipe list
+
+@enduml

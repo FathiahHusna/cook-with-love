@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Add Recipe
+autonumber
+participant app
+participant "ms-cook-love" as mcl
+database "cook-db" as db
+
+app -> mcl: click "Add Recipe": button POST /api/v1/recipe
+mcl -> db: save request payload to t_recipe
+db -> mcl: return success
+mcl -> app: return saved recipe
+
+@enduml
