@@ -3,13 +3,15 @@ package org.cook.with.love.dto;
 import lombok.Data;
 
 @Data
-public class RecipeDTO {
+public class RecipeDTO extends ErrorDTO{
 
-    private String name;
+    private String id;
 
-    private String ingredients;
+    private String name; //mandatory
 
-    private String step;
+    private String ingredients; //mandatory
+
+    private String step; //mandatory
 
     private String reference;
 
