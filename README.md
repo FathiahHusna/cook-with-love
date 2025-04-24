@@ -15,4 +15,6 @@ This is microservice for CRUD recipe (create, read, update and delete recipe)
 
 #### Technical Design
 
+![alt](src/main/diagram/sequence_diagram/output/get-all-recipe.png)
+![alt](src/main/diagram/sequence_diagram/output/get-recipe-by-id.png)
 ![alt](src/main/diagram/sequence_diagram/output/add-recipe.png)
