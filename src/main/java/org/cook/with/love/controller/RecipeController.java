@@ -17,13 +17,23 @@ public class RecipeController {
     @Autowired
     private RecipeService recipeService;
 
-    @GetMapping("/recipes")
+    @GetMapping("/recipe")
     public List<RecipeDTO> getAllRecipe(){
         return recipeService.getRecipe();
     }
 
-    @PostMapping("/add/recipe")
+    @PostMapping("/recipe")
     public RecipeDTO addRecipe(@RequestBody RecipeDTO recipeDTO){
         return recipeService.addRecipe(recipeDTO);
+    }
+
+    @GetMapping("/recipe/{id}")
+    public RecipeDTO getRecipeById(@PathVariable("id") String recipeId){
+        return recipeService.getRecipeById(recipeId);
+    }
+
+    @PutMapping("/recipe")
+    public RecipeDTO updateRecipe(@RequestBody RecipeDTO recipeDTO){
+        return recipeService.updateRecipe(recipeDTO);
     }
 }
