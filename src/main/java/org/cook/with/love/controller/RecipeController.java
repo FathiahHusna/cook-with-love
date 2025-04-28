@@ -36,4 +36,9 @@ public class RecipeController {
     public RecipeDTO updateRecipe(@RequestBody RecipeDTO recipeDTO){
         return recipeService.updateRecipe(recipeDTO);
     }
+
+    @DeleteMapping("/recipe/{id}")
+    public RecipeDTO deleteRecipe(@PathVariable("id") String recipeId){
+        return recipeService.deleteRecipe(recipeId);
+    }
 }

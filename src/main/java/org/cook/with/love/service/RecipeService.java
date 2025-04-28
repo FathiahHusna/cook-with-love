@@ -144,6 +144,32 @@ public class RecipeService {
         }
     }
 
+    public RecipeDTO deleteRecipe(String recipeId){
+        try{
+            log.trace("[deleteRecipe] Start deleteRecipe");
+            if(!StringUtils.hasText(recipeId)){
+                throw new InvalidRecipeException(RecipeErrorCode.RECIPE_FIELD_EMPTY.getCode(), RecipeErrorCode.RECIPE_FIELD_EMPTY.getMessage());
+            }
+            Optional<RecipeEntity> recipeEntityOptional = recipeRepository.findById(UUID.fromString(recipeId));
+            if(recipeEntityOptional.isPresent()){
+                RecipeEntity recipeEntity = recipeEntityOptional.get();
+                recipeRepository.delete(recipeEntity);
+                log.trace("[deleteRecipe] Success deleteRecipe");
+                return new RecipeDTO();
+            }else{
+                return setUnknownRecipe();
+            }
+        }catch (InvalidRecipeException ex){
+            log.error("[deleteRecipe] Error in deleteRecipe", ex);
+            return setInvalidEx(ex);
+        }catch (Exception ex){
+            log.error("[deleteRecipe] Error in deleteRecipe", ex);
+            return setUnexpectedEx();
+        }finally {
+            log.trace("[deleteRecipe] End deleteRecipe");
+        }
+    }
+
     private RecipeDTO setInvalidEx(InvalidRecipeException ex){
         RecipeDTO recipeDTO = new RecipeDTO();
         recipeDTO.setErrorCode(ex.getErrorCode());
