@@ -5,7 +5,7 @@ node {
     try{
         stage('Clone Repo'){
             git url: 'https://github.com/FathiahHusna/cook-with-love.git',
-            credentialsId:  'FathiahHusna',
+            credentialsId:  'springdeploy-user',
             branch: 'main'
         }
         stage('Build Docker'){
