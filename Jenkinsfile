@@ -9,7 +9,7 @@ node {
             branch: 'main'
         }
         stage('Build Docker'){
-            dockerImage = docker.build("springboot-deploy${env.BUILD_NUMBER}")
+            dockerImage = docker.build("springboot-deploy${env.BUILD_NUMBER}", ".")
         }
         stage('Deploy Docker'){
             echo "Docker Image Tag Name: ${dockerImageTag}"
