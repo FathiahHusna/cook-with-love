@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Search Random Recipe
+autonumber
+participant app
+participant "ms-cook-love" as mcl
+database "cook-db" as db
+
+app -> mcl: click "Pick Random" button: GET /api/v1/recipe/random
+mcl -> db: findAll to t_recipe
+db -> mcl: return all recipes
+mcl -> mcl: run Random() and pick 1 recipe
+mcl -> app: return single random recipe
+@enduml

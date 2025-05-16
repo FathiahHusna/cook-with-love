@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Search Recipe
+autonumber
+participant app
+participant "ms-cook-love" as mcl
+database "cook-db" as db
+
+app -> mcl: key in name/ingredients and/or choose category dropdown: GET /api/v1/recipe/search?searchText=spagethi&category=western
+mcl -> db: query to t_recipe
+db -> mcl: return recipe based on filter
+mcl -> app: return list recipes
+@enduml
