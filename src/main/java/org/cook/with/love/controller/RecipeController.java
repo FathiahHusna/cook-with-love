@@ -41,4 +41,14 @@ public class RecipeController {
     public RecipeDTO deleteRecipe(@PathVariable("id") String recipeId){
         return recipeService.deleteRecipe(recipeId);
     }
+
+    @GetMapping("/recipe/search")
+    public List<RecipeDTO> searchRecipes(@RequestParam(required = false) String searchText, @RequestParam(required = false) String category){
+        return recipeService.searchRecipe(searchText, category);
+    }
+
+    @GetMapping("/recipe/random")
+    public RecipeDTO searchRecipeRandom(){
+        return recipeService.searchRecipeRandom();
+    }
 }

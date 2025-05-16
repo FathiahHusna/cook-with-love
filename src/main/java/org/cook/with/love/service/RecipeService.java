@@ -170,6 +170,52 @@ public class RecipeService {
         }
     }
 
+    public List<RecipeDTO> searchRecipe(String keyword, String category){
+        log.trace("[searchRecipe] Start searchRecipe");
+        try{
+            List<RecipeEntity> recipeEntityList = recipeRepository.findAllRecipeBySearchText(keyword, category);
+            if(!recipeEntityList.isEmpty()){
+                List<RecipeDTO> recipeDTOList = recipeEntityList.stream().map(r -> RecipeMapper.INSTANCE.recipeEntityToRecipeDto(r)).toList();
+                int listSize = !recipeDTOList.isEmpty() ? recipeDTOList.size() : 0;
+                log.info("[searchRecipe] Check recipe list: {}" , listSize);
+                return recipeDTOList;
+            }
+        }catch (InvalidRecipeException ex){
+            log.error("[searchRecipe] Error in searchRecipe: " , ex);
+            return Collections.singletonList(setInvalidEx(ex));
+        }catch (Exception ex){
+            log.error("[searchRecipe] Error in searchRecipe: " , ex);
+            return Collections.singletonList(setUnexpectedEx());
+        }finally {
+            log.trace("[searchRecipe] End searchRecipe");
+        }
+        return new ArrayList<>();
+    }
+
+    public RecipeDTO searchRecipeRandom(){
+        log.trace("[searchRecipeRandom] Start searchRecipeRandom");
+        try{
+            List<RecipeEntity> recipeEntityList = recipeRepository.findAll();
+            if(!recipeEntityList.isEmpty()){
+                Random random = new Random();
+                int randomIndex = random.nextInt(recipeEntityList.size());
+                RecipeEntity recipeEntity = recipeEntityList.get(randomIndex);
+                RecipeDTO recipeDTO = RecipeMapper.INSTANCE.recipeEntityToRecipeDto(recipeEntity);
+                log.trace("[searchRecipeRandom] Random recipe: [{}]", recipeDTO);
+                return recipeDTO;
+            }
+        }catch (InvalidRecipeException ex){
+            log.error("[searchRecipeRandom] Error in searchRecipeRandom: " , ex);
+            return setInvalidEx(ex);
+        } catch (Exception ex){
+            log.error("[searchRecipeRandom] Error in searchRecipeRandom: " , ex);
+            return setUnexpectedEx();
+        }finally{
+            log.trace("[searchRecipeRandom] End searchRecipeRandom");
+        }
+        return new RecipeDTO();
+    }
+
     private RecipeDTO setInvalidEx(InvalidRecipeException ex){
         RecipeDTO recipeDTO = new RecipeDTO();
         recipeDTO.setErrorCode(ex.getErrorCode());
