@@ -43,7 +43,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/search")
-    public List<RecipeDTO> searchRecipes(@RequestParam(required = false) String searchText, @RequestParam(required = false) String category){
+    public List<RecipeDTO> searchRecipes(@RequestParam(name = "searchText", required = false) String searchText, @RequestParam(name = "category", required = false) String category){
         return recipeService.searchRecipe(searchText, category);
     }
 
