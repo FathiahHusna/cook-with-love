@@ -4,8 +4,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/cook
-    username: postgres
-    password: postgres
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   # JPA properties
   jpa:
     hibernate:
@@ -21,7 +21,8 @@ logging:
     console: "%d %-5level %logger : %msg%n"
   level:
     org:
-      springframework: info
+      springframework: #info
+        security: DEBUG
       hibernate: error
       cook:
         with:
@@ -29,3 +30,11 @@ logging:
 # Server configuration
 server:
   port: 8080 #set your port
+
+org:
+  cook:
+    with:
+      love:
+        api:
+          key: ${API_KEY}
+          secret: ${API_SECRET}

@@ -2,6 +2,7 @@ package org.cook.with.love.configuration;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,6 +23,12 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${org.cook.with.love.api.key:}")
+    private String apiKeyValue;
+
+    @Value("${org.cook.with.love.api.secret:}")
+    private String apiSecretValue;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         ApiKeyAuthFilter filter = new ApiKeyAuthFilter(new AntPathRequestMatcher("/api/v1/**"));
@@ -34,7 +41,7 @@ public class SecurityConfig {
             log.trace("[securityFilterChain] Receive API key {}" , apiKey);
             log.trace("[securityFilterChain] Receive API secret {}" , apiSecret);
 
-            if ("valid-api-key".equals(apiKey) && "valid-api-secret".equals(apiSecret)) {
+            if (apiKeyValue.equals(apiKey) && apiSecretValue.equals(apiSecret)) {
                 return new ApiKeyAuthenticationToken(apiKey, apiSecret, Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
             } else {
                 throw new BadCredentialsException("Invalid API Key or Secret");
