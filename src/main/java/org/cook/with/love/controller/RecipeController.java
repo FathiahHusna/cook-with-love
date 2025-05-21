@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1")
 @RestController
 public class RecipeController {
@@ -51,4 +50,10 @@ public class RecipeController {
     public RecipeDTO searchRecipeRandom(){
         return recipeService.searchRecipeRandom();
     }
+
+    @GetMapping("/test")
+    public String testEndpoint() {
+        return "Test successful";
+    }
+
 }
