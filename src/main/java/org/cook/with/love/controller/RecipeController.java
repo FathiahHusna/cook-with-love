@@ -51,9 +51,4 @@ public class RecipeController {
         return recipeService.searchRecipeRandom();
     }
 
-    @GetMapping("/test")
-    public String testEndpoint() {
-        return "Test successful";
-    }
-
 }
