@@ -2,6 +2,7 @@ package org.cook.with.love.configuration;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.cook.with.love.auth.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ public class SecurityConfig {
     private String apiSecretValue;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         ApiKeyAuthFilter filter = new ApiKeyAuthFilter(new AntPathRequestMatcher("/api/v1/**"));
 
         filter.setAuthenticationManager(authentication -> {
@@ -60,11 +61,13 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/v1/**").authenticated()
+                        .requestMatchers("/api/v1/recipe/**").authenticated() // protect everything else
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/v1/auth/get-token").permitAll() // 👈 allow token generation without auth
                         .anyRequest().permitAll()
                 )
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(AbstractHttpConfigurer::disable) // 👈 prevent 302 redirects
                 .httpBasic(AbstractHttpConfigurer::disable); // also disable basic login
 

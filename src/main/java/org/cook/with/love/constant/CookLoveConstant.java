@@ -8,4 +8,5 @@ public class CookLoveConstant {
     public static final String API_KEY_HEADER = "API-Key";
     public static final String API_SECRET_HEADER = "API-Secret";
     public static final String CONTENT_TYPE_HEADER = "Content-Type";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 }
