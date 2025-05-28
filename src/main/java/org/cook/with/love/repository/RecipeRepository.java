@@ -24,4 +24,6 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, UUID> {
             """;
     @Query(value = SEARCH_QUERY, nativeQuery = true)
     List<RecipeEntity> findAllRecipeBySearchText(@Param("searchText") String searchText, @Param("category") String category);
+
+    List<RecipeEntity> findAllByOrderByNameAsc();
 }

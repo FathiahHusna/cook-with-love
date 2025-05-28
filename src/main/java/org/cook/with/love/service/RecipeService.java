@@ -25,7 +25,7 @@ public class RecipeService {
 
     public List<RecipeDTO> getRecipe(){
         log.trace("[getRecipe] Start getRecipe");
-        List<RecipeEntity> recipeEntityList = recipeRepository.findAll();
+        List<RecipeEntity> recipeEntityList = recipeRepository.findAllByOrderByNameAsc();
         List<RecipeDTO> recipeDTOList = recipeEntityList.stream().map(r -> RecipeMapper.INSTANCE.recipeEntityToRecipeDto(r)).toList();
         int listSize = !recipeDTOList.isEmpty() ? recipeDTOList.size() : 0;
         log.info("[getRecipe] Check recipe list: {}" , listSize);
