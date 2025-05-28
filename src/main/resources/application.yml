@@ -4,8 +4,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/cook
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
   # JPA properties
   jpa:
     hibernate:
@@ -36,5 +36,7 @@ org:
     with:
       love:
         api:
-          key: ${API_KEY}
-          secret: ${API_SECRET}
+          key: ${API_KEY:}
+          secret: ${API_SECRET:}
+        jwt:
+          secret: ${JWT_SECRET_KEY:}
