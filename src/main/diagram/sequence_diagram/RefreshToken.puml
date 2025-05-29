@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Refresh Token
+autonumber
+participant app
+participant "ms-cook-love" as mcl
+
+app -> mcl: Call refresh token when expiry_time - current_time < 5mins: \nPOST /api/v1/auth/refresh-token
+mcl -> mcl: validate token
+alt validation success
+ mcl -> mcl: generate jwt token
+ mcl -> app: return 200 with token + expiry_time
+else validation fail
+    mcl->app: return 401 unauthorized
+end
+
+@enduml
