@@ -62,6 +62,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/v1/recipe/**").authenticated() // protect everything else
+                        .requestMatchers("/api/v1/auth/refresh-token").authenticated() // protect everything else
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/v1/auth/get-token").permitAll() // 👈 allow token generation without auth
                         .anyRequest().permitAll()
