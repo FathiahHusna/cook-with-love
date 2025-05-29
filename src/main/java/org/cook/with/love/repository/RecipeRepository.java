@@ -20,7 +20,8 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, UUID> {
                 LOWER(a.ingredients) LIKE LOWER(CONCAT('%', :searchText, '%'))
             )
             AND
-            (:category IS NULL OR :category = '' OR a.category = :category);
+            (:category IS NULL OR :category = '' OR a.category = :category)
+            order by a.name asc;
             """;
     @Query(value = SEARCH_QUERY, nativeQuery = true)
     List<RecipeEntity> findAllRecipeBySearchText(@Param("searchText") String searchText, @Param("category") String category);
